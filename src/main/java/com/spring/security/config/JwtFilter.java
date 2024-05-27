@@ -34,6 +34,7 @@ public class JwtFilter extends OncePerRequestFilter{
 		String username = "";
 		
 		if(authHeader != null && authHeader.startsWith("Bearer ")) {
+			//System.out.println("Auth Header is aval.....");
 			token = authHeader.substring(7);
 			username = jwtService.extractUserName(token);
 			
@@ -46,6 +47,9 @@ public class JwtFilter extends OncePerRequestFilter{
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 				}
 			}
+		}
+		else {
+			//System.out.println("Auth Header is not aval.....");
 		}
 		filterChain.doFilter(request, response);
 	}
